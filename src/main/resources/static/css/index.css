@@ -1,0 +1,71 @@
+body{
+    margin: 0px;
+    border: 0px;
+    cursor: pointer;
+}
+
+#main{
+    border: 2px solid black;
+    padding: 10px auto;
+}
+
+#filelist{
+    display: inline-block;
+    border: 1px solid black;
+    margin: 0px;
+    width: 20px;
+    height: 720px;
+    line-height: 700px;
+    overflow: auto;
+    text-align: center;
+}
+
+.showli:hover{
+    background-color: cornflowerblue;
+}
+
+#edit{
+    display: inline-block;
+    border: 1px solid black;
+    width: 720px;
+    height: 720px;
+    margin: 0px;
+}
+
+/* .title{
+    text-align: center;
+    height: 20px;
+    line-height: 20px;
+    padding: 0px;
+    margin: 0px;
+    font-size: 18px;
+} */
+
+#editArea{
+    display: block;
+    padding: 0px;
+    width: 720px;
+    height: 720px;
+    margin: 0px;
+    max-height: 720px;
+    min-height: 720px;
+    max-width: 720px;
+    min-width: 720px;
+}
+
+#html{
+    display: inline-block;
+    border: 1px solid black;
+    width: 720px;
+    height: 720px;
+    margin: 0px 0px 0px 10px;
+    background-color: rgb(216, 231, 188);
+}
+
+#html *{
+    width: 720px;
+}
+
+#html h1, h2, h3, h4, h5, h6{
+    text-align: center;
+}
