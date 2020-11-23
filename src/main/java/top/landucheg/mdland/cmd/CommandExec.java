@@ -8,7 +8,7 @@ public class CommandExec implements ICmd {
 
     private CommandExec(){}
 
-    public CommandExec getInstance(){
+    public static CommandExec getInstance(){
         return CommandExec.INSTANCE;
     }
 
