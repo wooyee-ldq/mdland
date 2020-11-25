@@ -1,28 +1,52 @@
 package top.landucheg.mdland.cmd;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import top.landucheg.mdland.util.EnvironmentUtil;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class CmdImpl implements ICmd {
 
-    private String order;
+    private String[] order;
 
     private Process pro;
+
+    @Autowired
+    EnvironmentUtil environmentUtil;
+
+    {
+        order = new String[3];
+        String system = System.getProperties().getProperty("os.name").toLowerCase();
+        if(system != null && system.contains("windows")){
+            order[0] = "cmd";
+            order[1] = "/c";
+        }else if(system != null && system.contains("linux")){
+            order[0] = "/bin/bash";
+            order[1] = "-c";
+        }else{
+            throw new RuntimeException("Get the System Environment Is Error!");
+        }
+    }
 
     public CmdImpl() {
     }
 
     public CmdImpl(String order) {
-        this.order = order;
+        setOrderVal(order);
+    }
+
+    private void setOrderVal(String od){
+        order[2] = environmentUtil.getProperties("exec.cdinitpath") + " " + od;
     }
 
     public String getOrder() {
-        return order;
+        return order[2];
     }
 
-    public void setOrder(String order) {
-        this.order = order;
+    public CmdImpl setOrder(String order) {
+        this.setOrderVal(order);
+        return this;
     }
 
     /**

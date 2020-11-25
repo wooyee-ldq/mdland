@@ -12,8 +12,9 @@ public class CommandExec implements ICmd {
         return CommandExec.INSTANCE;
     }
 
-    public void setOrder(CmdImpl order){
+    public CommandExec setOrder(CmdImpl order){
         this.order = order;
+        return this;
     }
 
     @Override
@@ -29,5 +30,11 @@ public class CommandExec implements ICmd {
     @Override
     public boolean isExecSuccess() throws Exception {
         return order.isExecSuccess();
+    }
+
+    public static void main(String[] args) {
+        CommandExec cmd = CommandExec.getInstance();
+        String ret = cmd.setOrder(new CmdImpl("dir")).exec();
+        System.out.println(ret);
     }
 }
