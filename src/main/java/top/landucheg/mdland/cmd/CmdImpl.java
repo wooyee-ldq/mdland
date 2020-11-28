@@ -1,11 +1,14 @@
 package top.landucheg.mdland.cmd;
 
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import top.landucheg.mdland.util.EnvironmentUtil;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+@NoArgsConstructor
 public class CmdImpl implements ICmd {
 
     private String[] order;
@@ -27,9 +30,6 @@ public class CmdImpl implements ICmd {
         }else{
             throw new RuntimeException("Get the System Environment Is Error!");
         }
-    }
-
-    public CmdImpl() {
     }
 
     public CmdImpl(String order) {
@@ -70,9 +70,18 @@ public class CmdImpl implements ICmd {
             this.pro = Runtime.getRuntime().exec(order);
             String line;
             StringBuilder strbr = new StringBuilder();
-            BufferedReader buf = new BufferedReader(new InputStreamReader(pro.getInputStream()));
-            while ((line = buf.readLine()) != null){
-                strbr.append(line).append(System.lineSeparator());
+            BufferedReader buf = null;
+            try{
+                buf = new BufferedReader(new InputStreamReader(pro.getInputStream()));
+                while ((line = buf.readLine()) != null){
+                    strbr.append(line).append(System.lineSeparator());
+                }
+            } catch (IOException ioe){
+                ioe.printStackTrace();
+            } finally {
+                if(null != buf){
+                    buf.close();
+                }
             }
             consoleLog = strbr.toString();
         } catch (IOException e) {

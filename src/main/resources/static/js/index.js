@@ -1,5 +1,7 @@
 $(function(){
 
+    $ajax()
+
     var oldText = $("#editArea").val();
     $("#editArea").on('input propertychange', function() {
         var currentVal = $(this).val();

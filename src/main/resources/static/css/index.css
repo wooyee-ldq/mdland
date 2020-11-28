@@ -7,9 +7,24 @@ body{
 #main{
     border: 2px solid black;
     padding: 10px auto;
+    /* width: 1500px; */
+}
+
+#title{
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    color: rgb(15, 148, 189);
+    background-color: mistyrose;
 }
 
 #filelist{
+    display: none;
+    height: 720px;
+    width: 280px;
+}
+
+#showli{
     display: inline-block;
     border: 1px solid black;
     margin: 0px;
@@ -18,9 +33,10 @@ body{
     line-height: 700px;
     overflow: auto;
     text-align: center;
+    background-color: rgb(168, 205, 223);
 }
 
-.showli:hover{
+#showli:hover{
     background-color: cornflowerblue;
 }
 
@@ -29,24 +45,17 @@ body{
     border: 1px solid black;
     width: 720px;
     height: 720px;
-    margin: 0px;
+    margin: 0px 0px 0px 10px;
 }
-
-/* .title{
-    text-align: center;
-    height: 20px;
-    line-height: 20px;
-    padding: 0px;
-    margin: 0px;
-    font-size: 18px;
-} */
 
 #editArea{
     display: block;
-    padding: 0px;
+    font-size: 16px;
     width: 720px;
     height: 720px;
     margin: 0px;
+    padding: 0px;
+    /* padding: 0px 5px; */
     max-height: 720px;
     min-height: 720px;
     max-width: 720px;
@@ -58,14 +67,16 @@ body{
     border: 1px solid black;
     width: 720px;
     height: 720px;
+    /* padding: 0px 5px; */
     margin: 0px 0px 0px 10px;
     background-color: rgb(216, 231, 188);
+    overflow: auto;
 }
 
 #html *{
     width: 720px;
 }
 
-#html h1, h2, h3, h4, h5, h6{
+#html h1{
     text-align: center;
 }
