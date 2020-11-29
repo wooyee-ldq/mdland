@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 
 @NoArgsConstructor
 @Component
-public class CmdImpl implements ICmd {
+public class CmdCommonImpl implements ICmd {
 
     private String[] order;
 
@@ -34,7 +34,7 @@ public class CmdImpl implements ICmd {
         }
     }
 
-    public CmdImpl(String order) {
+    public CmdCommonImpl(String order) {
         setOrderVal(order);
     }
 
@@ -46,9 +46,17 @@ public class CmdImpl implements ICmd {
         return order[2];
     }
 
-    public CmdImpl setOrder(String order) {
+    public CmdCommonImpl setOrder(String order) {
         this.setOrderVal(order);
         return this;
+    }
+
+    public Process exec2returnProcess(String orderKey) {
+        return this.setOrder(environmentUtil.getProperties(orderKey)).exec2returnProcess();
+    }
+
+    public String exec(String orderKey) {
+        return this.setOrder(environmentUtil.getProperties(orderKey)).exec();
     }
 
     /**

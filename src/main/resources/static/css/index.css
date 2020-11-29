@@ -7,21 +7,62 @@ body{
 #main{
     border: 2px solid black;
     padding: 10px auto;
-    /* width: 1500px; */
+}
+
+.wid{
+    width: 1800px;
 }
 
 #title{
+    text-align: left;
+    height: 22px;
+    line-height: 22px;
+    background-color: mistyrose;
+}
+
+#title span{
+    display: inline-block;
     font-size: 16px;
     text-align: center;
     font-weight: bold;
     color: rgb(15, 148, 189);
-    background-color: mistyrose;
+    padding: 0px 40px 0px 10px;
+}
+
+#title button{
+    height: 22px;
+    padding: 0px 10px;
+    margin: 0px;
+    font-size: 14px;
 }
 
 #filelist{
-    display: none;
+    display: inline-block;
     height: 720px;
     width: 280px;
+    overflow: hidden;
+}
+
+#list{
+    padding: 10px 0px 10px 0px;
+    margin: 0px;
+}
+
+#list li:hover{
+    background-color: cornflowerblue;
+}
+
+#filelist li{
+    list-style: none;
+    width: 280px;
+    height: 28px;
+    line-height: 28px;
+    font-size: 16px;
+    margin: 2px 0px 0px 0px;
+    padding: 0px 0px 0px 10px;
+    text-align: left;
+    background-color: rgb(188, 222, 224);
+    overflow: hidden;
 }
 
 #showli{
@@ -62,6 +103,10 @@ body{
     min-width: 720px;
 }
 
+#list .editnow{
+    background-color: cornflowerblue;
+}
+
 #html{
     display: inline-block;
     border: 1px solid black;
@@ -73,10 +118,22 @@ body{
     overflow: auto;
 }
 
-#html *{
+#html hr{
     width: 720px;
 }
 
 #html h1{
     text-align: center;
+}
+
+#html h1,h2,h3,h4,h5,h6{
+    width: 720px;
+}
+
+#html p{
+    width: 720px;
+}
+
+#html li{
+    width: 720px;
 }

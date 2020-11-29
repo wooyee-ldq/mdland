@@ -1,7 +1,7 @@
 package top.landucheg.mdland.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.landucheg.mdland.model.Result;
@@ -25,7 +25,7 @@ public class FileController {
      *
      * @return json
      */
-    @PostMapping("/filelist")
+    @GetMapping("/filelist")
     public Result<List<String>> fileList(){
         try {
             List<String> fileList = fileService.getFileList();
@@ -43,7 +43,7 @@ public class FileController {
      * @param fileName 文件名
      * @return json
      */
-    @PostMapping("/readfile")
+    @GetMapping("/readfile")
     public Result<String> readFile(@RequestParam("filename") String fileName){
         try {
             String context = fileService.readFile(fileName);
@@ -60,7 +60,7 @@ public class FileController {
      * @param context 文件内容
      * @return json
      */
-    @PostMapping("/savefile")
+    @GetMapping("/savefile")
     public Result<String> saveFile(@RequestParam("filename") String fileName, @RequestParam("context") String context){
         try {
             boolean bl = fileService.saveFile(fileName, context);
@@ -79,10 +79,10 @@ public class FileController {
      *
      * @return json
      */
-    @PostMapping("/newpost")
-    public Result<String> newPost(){
+    @GetMapping("/newpost")
+    public Result<String> newPost(@RequestParam("filename") String fileName){
         try {
-            String ret =  hexoService.hexoNew();
+            String ret =  hexoService.hexoNew(fileName);
             return new Result<>(Result.SUCCESS_CODE, Result.SUCCESS_MSG, ret);
         } catch (Exception e) {
             return new Result<>(Result.ERROR_CODE, Result.ERROR_MSG, e.getMessage());
@@ -94,7 +94,7 @@ public class FileController {
      *
      * @return json
      */
-    @PostMapping("/release")
+    @GetMapping("/release")
     public Result<String> release(){
         try {
             String ret = hexoService.hexoRelease();

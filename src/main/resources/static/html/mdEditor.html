@@ -16,15 +16,23 @@
     <title>MDEditor</title>
 </head>
 <body>
-    <div id = "main" class="">
-        <div id="title">MDLand Editor</div>
-        <div id="filelist"></div>
-        <div id="showli" class="showli">>></div>
+    <div id = "main" class="wid">
+        <div id="title">
+            <span>MDLand Editor</span>
+            <button id="release" class="btn btn-primary">发布</button>
+            <button id="newfile" class="btn btn-success">新建</button>
+            <button id="savefile" class="btn btn-primary" file="">保存</button>
+        </div>
+        <div id="filelist">
+            <ul id="list"></ul>
+        </div>
+        <div id="showli" class="showli">&lt;&lt;</div>
         <div id="edit" class="">
             <!-- <textarea name="" id="editArea" class="well well-small" onkeyup=render()></textarea> -->
             <textarea name="" id="editArea" class="well"></textarea>
         </div>
-        <div id="html" class="">
+        <div id="html" class=""></div>
+        <div id="footer">
 
         </div>
     </div>

@@ -12,13 +12,29 @@ public class HexoService {
     @Autowired
     EnvironmentUtil environmentUtil;
 
-    public String hexoNew() throws Exception {
-        return this.hexoExec("hexo.new");
+    @Autowired
+    CmdImpl cmdImpl;
+
+    @Autowired
+    CommonService commonService;
+
+    @Autowired
+    FileService fileService;
+
+    public String hexoNew(String filename) throws Exception {
+        this.hexoExec("hexo.new", filename);
+        return fileService.readFile(filename);
     }
 
     public String hexoRelease() throws Exception {
+        String sourceFile = environmentUtil.getProperties("blog.path");
+        String toFile = environmentUtil.getProperties("www.path");
         StringBuilder strbd = new StringBuilder();
-        strbd.append(this.hexoClean()).append(System.lineSeparator()).append(this.hexoGenerate());
+        strbd.append(this.hexoClean())
+                .append(System.lineSeparator())
+                .append(this.hexoGenerate())
+                .append(System.lineSeparator())
+                .append(commonService.cp(sourceFile, toFile));
         return strbd.toString();
     }
 
@@ -32,7 +48,17 @@ public class HexoService {
 
     private String hexoExec(String orderKey) throws Exception {
         CommandExec cmd = CommandExec.getInstance();
-        cmd.setOrder(new CmdImpl(environmentUtil.getProperties(orderKey)));
+        cmd.setOrder(cmdImpl.setOrder(environmentUtil.getProperties(orderKey)));
+        String result =  cmd.exec();
+        if(!cmd.isExecSuccess()){
+            throw new Exception(orderKey + " running error!");
+        }
+        return result;
+    }
+
+    private String hexoExec(String orderKey, String param) throws Exception {
+        CommandExec cmd = CommandExec.getInstance();
+        cmd.setOrder(cmdImpl.setOrder(environmentUtil.getProperties(orderKey) + " " + param));
         String result =  cmd.exec();
         if(!cmd.isExecSuccess()){
             throw new Exception(orderKey + " running error!");
