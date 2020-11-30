@@ -47,12 +47,18 @@ $(function(){
 
     // html渲染
     function render(text){
-        var converter = new showdown.Converter();
-        var html = converter.makeHtml(text);
+        var html = marked(text);
         var htmlElem = $("#html");
         htmlElem.empty();
         htmlElem.append(html);
     }
+    // function render(text){
+    //     var converter = new showdown.Converter();
+    //     var html = converter.makeHtml(text);
+    //     var htmlElem = $("#html");
+    //     htmlElem.empty();
+    //     htmlElem.append(html);
+    // }
 
     // 点击列表拉链
     $("#showli").click(function(){
@@ -104,14 +110,17 @@ $(function(){
     // 新建文件
     $("#newfile").click(function(){
         // 显示输入文件名
-        var file = prompt("文件名");
+        var file = prompt("文件名", "");
         // 请求后台创建文件
-        if(file == null || file == ""){
+        if(file == null){
+            return;
+        }
+        if(file == ""){
             alert("文件名不能为空！");
         }else{
             $.ajax({
                 url: "/mdland/newpost",
-                method: "post",  // 这里设置为post，禁用了此功能，本地电脑无法测试
+                method: "get",  // 这里设置为post，禁用了此功能，本地电脑无法测试
                 async: true,
                 dataType: "json",
                 data: {
@@ -148,7 +157,7 @@ $(function(){
         }else{
             $.ajax({
                 url: "/mdland/savefile",
-                method: "post",  // 这里设置为post，禁用了此功能，本地电脑无法测试
+                method: "get",  // 这里设置为post，禁用了此功能，本地电脑无法测试
                 async: true,
                 dataType: "json",
                 data: {
@@ -172,7 +181,30 @@ $(function(){
     });
 
     // 发布
-
+    $("#release").click(function(){
+        var isrl = confirm("确认要发布到blog吗？");
+        if(isrl){
+            $.ajax({
+                url: "/mdland/release",
+                method: "get",  // 这里设置为post，禁用了此功能，本地电脑无法测试
+                async: true,
+                dataType: "json",
+                data: {},
+                success:function(data){
+                    var code = data.code;
+                    var context = data.data;
+                    if(code == 600){
+                        alert("发布成功：" + context);
+                    }else{
+                        alert("发布失败：" + context);
+                    }
+                },
+                error:function(err){
+                    alert("error!");
+                }
+            });
+        }
+    });
 
 
 
