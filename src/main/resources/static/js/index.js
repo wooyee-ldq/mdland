@@ -10,18 +10,18 @@ $(function(){
             var code = data.code;
             if(code == 600){
                 var list = data.data;
-                for(let i = 0; i < list.length; i++){
-                    let filename = list[i];
-                    let li = "<li title='" + filename + "'>" + filename + "</li>";
+                for(var i = 0; i < list.length; i++){
+                    var filename = list[i];
+                    var li = "<li title='" + filename + "'>" + filename + "</li>";
                     $("#list").append(li);
                 }
             }else{
-                let li = "<li>获取文件列表失败，请刷新页面！</li>"
+                var li = "<li>获取文件列表失败，请刷新页面！</li>"
                 $("#list").append(li);
             }
         },
         error:function(err){
-            let li = "<li>error！</li>"
+            var li = "<li>error！</li>"
             $("#list").append(li);
         }
     });
@@ -131,7 +131,7 @@ $(function(){
                     var context = data.data;
                     if(code == 600){
                         $("#list li").removeClass("editnow");
-                        let li = "<li class='editnow' title='" + file + "'>" + file + "</li>";
+                        var li = "<li class='editnow' title='" + file + "'>" + file + "</li>";
                         $("#list").prepend(li);
                         oldText = context;
                         $("#editArea").val(context);
