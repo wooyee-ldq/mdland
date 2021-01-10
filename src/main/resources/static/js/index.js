@@ -221,6 +221,9 @@ $(function(){
                     var context = data.data;
                     if(code == 600){
                         $("#list li").removeClass("editnow");
+                        if(!file.endsWith(".md")){
+                            file = file + ".md";
+                        }
                         var li = "<li class='editnow' title='" + file + "'>" + file + "</li>";
                         $("#list").prepend(li);
                         oldText = context;
