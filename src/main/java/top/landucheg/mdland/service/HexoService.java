@@ -25,7 +25,10 @@ public class HexoService {
         if(filename.trim() == "" || filename == null){
             throw new Exception("error: filename is null.");
         }
-        this.hexoExec("hexo.new", filename);
+        this.hexoExec("hexo.new", filename.trim());
+        if(!filename.trim().endsWith(".md")){
+            filename = filename + ".md";
+        }
         return fileService.readFile(filename);
     }
 

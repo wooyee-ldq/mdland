@@ -15,6 +15,12 @@ public class FileService {
     @Autowired
     EnvironmentUtil environmentUtil;
 
+    /**
+     * 获取文件列表
+     *
+     * @return List
+     * @throws Exception
+     */
     public List getFileList() throws Exception {
         String fileDirPath = environmentUtil.getProperties("post.path");
         File fileDir = new File(fileDirPath);
@@ -29,6 +35,12 @@ public class FileService {
         return filesName;
     }
 
+    /**
+     * 获取最后编辑的文件名
+     *
+     * @return String
+     * @throws Exception
+     */
     public String getLastFile() throws Exception {
         URL url = this.getClass().getResource("/lsfiln.txt");
         File file = new File(url.getPath());
@@ -52,6 +64,13 @@ public class FileService {
     }
 
 
+    /**
+     * 读取文件内容
+     *
+     * @param fileName String
+     * @return String
+     * @throws Exception
+     */
     public String readFile(String fileName) throws Exception {
         File file = getFile(fileName);
         String context = this.read(file);
@@ -59,6 +78,12 @@ public class FileService {
         return context;
     }
 
+    /**
+     * 保存最后编辑的文件名
+     *
+     * @param fileName String
+     * @throws Exception
+     */
     private void saveLastFileName(String fileName) throws Exception {
         URL url = this.getClass().getResource("/lsfiln.txt");
         File file = new File(url.getPath());
@@ -80,6 +105,13 @@ public class FileService {
         }
     }
 
+    /**
+     * 构造文件路径，返回File对象
+     *
+     * @param fileName String
+     * @return File
+     * @throws Exception
+     */
     private File getFile(String fileName) throws Exception {
         String prePath = environmentUtil.getProperties("post.path");
         if(prePath != null && !prePath.endsWith("/")){

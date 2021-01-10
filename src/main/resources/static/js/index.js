@@ -55,6 +55,7 @@ $(function(){
                                 $("#editArea").val(context);
                                 // 设置文件列表打开文件样式
                                 $("#list li").removeClass("editnow");
+                                let thisli = $("[title='" + file + "']");
                                 thisli.addClass("editnow");
                                 // 设置编写区域的文件属性为当前文件
                                 $("#savefile").attr("file", file);

@@ -32,9 +32,9 @@ public class CommandExec implements ICmd {
         return orders.get().isExecSuccess();
     }
 
-    public static void main(String[] args) {
-        CommandExec cmd = CommandExec.getInstance();
-        String ret = cmd.setOrder(new CmdImpl("dir")).exec();
-        System.out.println(ret);
-    }
+//    public static void main(String[] args) {
+//        CommandExec cmd = CommandExec.getInstance();
+//        String ret = cmd.setOrder(new CmdImpl("dir")).exec();
+//        System.out.println(ret);
+//    }
 }

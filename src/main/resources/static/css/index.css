@@ -124,6 +124,8 @@ body{
 
 #html *{
     width: 650px;
+    /* margin: 0px;
+    padding: 0px; */
 }
 
 #html hr{
