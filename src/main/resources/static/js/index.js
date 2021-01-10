@@ -55,7 +55,7 @@ $(function(){
                                 $("#editArea").val(context);
                                 // 设置文件列表打开文件样式
                                 $("#list li").removeClass("editnow");
-                                let thisli = $("[title='" + file + "']");
+                                var thisli = $("[title='" + file + "']");
                                 thisli.addClass("editnow");
                                 // 设置编写区域的文件属性为当前文件
                                 $("#savefile").attr("file", file);
@@ -130,7 +130,7 @@ $(function(){
     // 读取文件
     $("#list").on('click', 'li', function(){
         if($("#editArea").val() != oldText){
-            let isSave = confirm($("#savefile").attr("file") + " 文件被修改，是否保存？");
+            var isSave = confirm($("#savefile").attr("file") + " 文件被修改，是否保存？");
             if(isSave){
                 var data = $("#editArea").val();
                 var file = $("#savefile").attr("file");
