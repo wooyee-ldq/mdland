@@ -13,9 +13,9 @@ import java.io.InputStreamReader;
 @Component
 public class CmdImpl implements ICmd {
 
-    private String[] preOrder;
+    private static final ThreadLocal<String> localOrders = new ThreadLocal<>();
 
-    private final static ThreadLocal<String> localOrders = new ThreadLocal<>();
+    private String[] preOrder;
 
     private Process pro;
 
@@ -121,7 +121,7 @@ public class CmdImpl implements ICmd {
         String[] orders = new String[3];
         orders[0] = this.preOrder[0];
         orders[1] = this.preOrder[1];
-        orders[2] = this.localOrders.get();
+        orders[2] = localOrders.get();
         return orders;
     }
 }

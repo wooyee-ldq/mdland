@@ -4,7 +4,7 @@ public class CommandExec implements ICmd {
 
     private static final CommandExec INSTANCE = new CommandExec();
 
-    private final static ThreadLocal<CmdImpl> orders = new ThreadLocal<>();
+    private static final ThreadLocal<CmdImpl> orders = new ThreadLocal<>();
 
     private CommandExec(){}
 
