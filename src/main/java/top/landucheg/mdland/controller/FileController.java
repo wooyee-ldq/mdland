@@ -38,6 +38,21 @@ public class FileController {
     }
 
     /**
+     * 返回最后编辑的文章文件名
+     *
+     * @return json
+     */
+    @GetMapping("/getlsfiln")
+    public Result<String> getlsFilN(){
+        try {
+            String fileName = fileService.getLastFile();
+            return new Result<>(Result.SUCCESS_CODE, Result.SUCCESS_MSG, fileName);
+        } catch (Exception e) {
+            return new Result<>(Result.ERROR_CODE, Result.ERROR_MSG, e.getMessage());
+        }
+    }
+
+    /**
      * 打开文章
      *
      * @param fileName 文件名

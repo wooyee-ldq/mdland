@@ -4,7 +4,7 @@ public class CommandExec implements ICmd {
 
     private static final CommandExec INSTANCE = new CommandExec();
 
-    private CmdImpl order;
+    private final static ThreadLocal<CmdImpl> orders = new ThreadLocal<>();
 
     private CommandExec(){}
 
@@ -13,28 +13,28 @@ public class CommandExec implements ICmd {
     }
 
     public CommandExec setOrder(CmdImpl order){
-        this.order = order;
+        orders.set(order);
         return this;
     }
 
     @Override
     public Process exec2returnProcess() {
-        return order.exec2returnProcess();
+        return orders.get().exec2returnProcess();
     }
 
     @Override
     public String exec() {
-        return order.exec();
+        return orders.get().exec();
     }
 
     @Override
     public boolean isExecSuccess() throws Exception {
-        return order.isExecSuccess();
+        return orders.get().isExecSuccess();
     }
 
-//    public static void main(String[] args) {
-//        CommandExec cmd = CommandExec.getInstance();
-//        String ret = cmd.setOrder(new CmdImpl("dir")).exec();
-//        System.out.println(ret);
-//    }
+    public static void main(String[] args) {
+        CommandExec cmd = CommandExec.getInstance();
+        String ret = cmd.setOrder(new CmdImpl("dir")).exec();
+        System.out.println(ret);
+    }
 }

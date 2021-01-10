@@ -5,12 +5,16 @@ body{
 }
 
 #main{
-    border: 2px solid black;
+    /* border: 2px solid black; */
     padding: 10px auto;
 }
 
-.wid{
-    width: 1800px;
+.swid{
+    width: 1420px;
+}
+
+.bwid{
+    width: 1700px;
 }
 
 #title{
@@ -67,11 +71,12 @@ body{
 
 #showli{
     display: inline-block;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     margin: 0px;
+    margin-top: 10px;
     width: 20px;
-    height: 720px;
-    line-height: 700px;
+    height: 710px;
+    line-height: 710px;
     overflow: auto;
     text-align: center;
     background-color: rgb(168, 205, 223);
@@ -83,8 +88,8 @@ body{
 
 #edit{
     display: inline-block;
-    border: 1px solid black;
-    width: 720px;
+    /* border: 1px solid black; */
+    width: 680px;
     height: 720px;
     margin: 0px 0px 0px 10px;
 }
@@ -92,15 +97,14 @@ body{
 #editArea{
     display: block;
     font-size: 16px;
-    width: 720px;
-    height: 720px;
+    width: 660px;
+    height: 700px;
     margin: 0px;
-    padding: 0px;
-    /* padding: 0px 5px; */
-    max-height: 720px;
-    min-height: 720px;
-    max-width: 720px;
-    min-width: 720px;
+    padding: 10px;
+    max-height: 700px;
+    min-height: 700px;
+    max-width: 660px;
+    min-width: 660px;
 }
 
 #list .editnow{
@@ -109,17 +113,21 @@ body{
 
 #html{
     display: inline-block;
-    border: 1px solid black;
-    width: 720px;
-    height: 720px;
-    /* padding: 0px 5px; */
+    /* border: 1px solid black; */
+    width: 660px;
+    height: 700px;
+    padding: 10px;
     margin: 0px 0px 0px 10px;
     background-color: rgb(216, 231, 188);
     overflow: auto;
 }
 
+#html *{
+    width: 650px;
+}
+
 #html hr{
-    width: 720px;
+    width: 650px;
 }
 
 #html h1{
@@ -127,13 +135,17 @@ body{
 }
 
 #html h1,h2,h3,h4,h5,h6{
-    width: 720px;
+    width: 650px;
 }
 
 #html p{
-    width: 720px;
+    width: 650px;
 }
 
 #html li{
-    width: 720px;
+    width: 650px;
+}
+
+#html pre{
+    width: 650px;
 }

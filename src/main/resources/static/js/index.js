@@ -26,6 +26,58 @@ $(function(){
         }
     });
 
+    $.ajax({
+        url: "/mdland/getlsfiln",
+        method: "get",
+        async: true,
+        dataType: "json",
+        data: {},
+        success:function(data){
+            var code = data.code;
+            if(code == 600){
+                var file = data.data;
+                if(file != null && file != ""){
+                    $.ajax({
+                        url: "/mdland/readfile",
+                        method: "get",
+                        async: true,
+                        dataType: "json",
+                        data: {
+                            filename:file
+                        },
+                        success:function(data){
+                            var code = data.code;
+                            var context = data.data;
+                            if(code == 600){
+                                // 修改原文本数据副本内容
+                                oldText = context;
+                                // 设置编写区域内容
+                                $("#editArea").val(context);
+                                // 设置文件列表打开文件样式
+                                $("#list li").removeClass("editnow");
+                                thisli.addClass("editnow");
+                                // 设置编写区域的文件属性为当前文件
+                                $("#savefile").attr("file", file);
+                                // 渲染文本
+                                render(context);
+                            }else{
+                                alert("文件打开失败：" + context);
+                            }
+                        },
+                        error:function(err){
+                            alert("error!");
+                        }
+                    });
+                }
+            }else{
+                alert("read last file error!");
+            }
+        },
+        error:function(err){
+            alert("read last file error!");
+        }
+    });
+
     // 测试---------------------------------------------------------------------------------------------------------------------------------------
     // let li = "<li title = '获取文件列表失败，请刷新页面！'>获取文件列表失败，请刷新页面！</li>";
     // $("#list").append(li); 
@@ -65,10 +117,10 @@ $(function(){
         var text = $(this).html();
         if(text == "&lt;&lt;" || text == "<<"){
             $(this).html("&gt;&gt;");
-            $("#main").removeClass("wid");
+            $("#main").removeClass("bwid").addClass("swid");
         }else{
             $(this).html("&lt;&lt;");
-            $("#main").addClass("wid");
+            $("#main").removeClass("swid").addClass("bwid");
         }
         $("#filelist").toggle(200);
     });
@@ -76,6 +128,37 @@ $(function(){
 
     // 读取文件
     $("#list").on('click', 'li', function(){
+        if($("#editArea").val() != oldText){
+            let isSave = confirm($("#savefile").attr("file") + " 文件被修改，是否保存？");
+            if(isSave){
+                var data = $("#editArea").val();
+                var file = $("#savefile").attr("file");
+                $.ajax({
+                    url: "/mdland/savefile",
+                    method: "get",  // 这里设置为post，禁用了此功能，本地电脑无法测试
+                    async: true,
+                    dataType: "json",
+                    data: {
+                        filename:file,
+                        context:data
+                    },
+                    success:function(data){
+                        var code = data.code;
+                        var context = data.data;
+                        if(code == 600){
+                            alert("保存成功：" + context);
+                        }else{
+                            alert("保存失败：" + context);
+                        }
+                    },
+                    error:function(err){
+                        alert("error!");
+                    }
+                });
+            }else{
+                return;
+            }
+        }
         var thisli = $(this);
         var file = thisli.attr("title");
         if(file != null && file != ""){
@@ -91,11 +174,17 @@ $(function(){
                     var code = data.code;
                     var context = data.data;
                     if(code == 600){
+                        // 修改原文本数据副本内容
                         oldText = context;
+                        // 设置编写区域内容
                         $("#editArea").val(context);
+                        // 设置文件列表打开文件样式
                         $("#list li").removeClass("editnow");
                         thisli.addClass("editnow");
+                        // 设置编写区域的文件属性为当前文件
                         $("#savefile").attr("file", file);
+                        // 渲染文本
+                        render(context);
                     }else{
                         alert("文件打开失败：" + context);
                     }
@@ -136,6 +225,7 @@ $(function(){
                         oldText = context;
                         $("#editArea").val(context);
                         $("#savefile").attr("file", file);
+                        render(context);
                     }else{
                         alert("文件创建失败：" + context);
                     }

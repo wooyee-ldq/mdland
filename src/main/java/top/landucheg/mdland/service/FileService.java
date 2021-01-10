@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import top.landucheg.mdland.util.EnvironmentUtil;
 
 import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +29,55 @@ public class FileService {
         return filesName;
     }
 
+    public String getLastFile() throws Exception {
+        URL url = this.getClass().getResource("/lsfiln.txt");
+        File file = new File(url.getPath());
+        if(!file.exists()){
+            throw new Exception("lsfiln file is not to be create.");
+        }
+        BufferedReader reader = null;
+        try{
+            reader = new BufferedReader(new FileReader(file));
+            String fileName = reader.readLine();
+            return fileName;
+        } finally {
+            if(null != reader){
+                try{
+                    reader.close();
+                } catch (IOException e){
+                    throw new IOException("close file error.");
+                }
+            }
+        }
+    }
+
 
     public String readFile(String fileName) throws Exception {
         File file = getFile(fileName);
         String context = this.read(file);
+        saveLastFileName(fileName);
         return context;
+    }
+
+    private void saveLastFileName(String fileName) throws Exception {
+        URL url = this.getClass().getResource("/lsfiln.txt");
+        File file = new File(url.getPath());
+        if(!file.exists()){
+            throw new Exception("lsfiln file is not to be create.");
+        }
+        FileWriter writer = null;
+        try{
+            writer = new FileWriter(file);
+            writer.write(fileName);
+        } finally {
+            if(null != writer){
+                try{
+                    writer.close();
+                } catch (IOException e){
+                    throw new IOException("close file error.");
+                }
+            }
+        }
     }
 
     private File getFile(String fileName) throws Exception {
@@ -61,7 +106,7 @@ public class FileService {
         try{
             reader = new BufferedReader(new FileReader(file));
             while((line = reader.readLine()) != null){
-                sbd.append(line);
+                sbd.append(line).append(System.lineSeparator());
             }
         } catch (IOException ioe){
 

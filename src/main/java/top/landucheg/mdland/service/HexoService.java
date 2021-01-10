@@ -22,6 +22,9 @@ public class HexoService {
     FileService fileService;
 
     public String hexoNew(String filename) throws Exception {
+        if(filename.trim() == "" || filename == null){
+            throw new Exception("error: filename is null.");
+        }
         this.hexoExec("hexo.new", filename);
         return fileService.readFile(filename);
     }

@@ -13,7 +13,9 @@ import java.io.InputStreamReader;
 @Component
 public class CmdImpl implements ICmd {
 
-    private String[] order;
+    private String[] preOrder;
+
+    private final static ThreadLocal<String> localOrders = new ThreadLocal<>();
 
     private Process pro;
 
@@ -21,14 +23,14 @@ public class CmdImpl implements ICmd {
     EnvironmentUtil environmentUtil;
 
     {
-        order = new String[3];
+        preOrder = new String[2];
         String system = System.getProperties().getProperty("os.name").toLowerCase();
         if(system != null && system.contains("windows")){
-            order[0] = "cmd";
-            order[1] = "/c";
+            preOrder[0] = "cmd";
+            preOrder[1] = "/c";
         }else if(system != null && system.contains("linux")){
-            order[0] = "/bin/bash";
-            order[1] = "-c";
+            preOrder[0] = "/bin/bash";
+            preOrder[1] = "-c";
         }else{
             throw new RuntimeException("Get the System Environment Is Error!");
         }
@@ -39,11 +41,11 @@ public class CmdImpl implements ICmd {
     }
 
     private void setOrderVal(String od){
-        order[2] = environmentUtil.getProperties("exec.cdinitpath") + " " + od;
+        localOrders.set(environmentUtil.getProperties("exec.cdinitpath") + " " + od);
     }
 
     public String getOrder() {
-        return order[2];
+        return localOrders.get();
     }
 
     public CmdImpl setOrder(String order) {
@@ -58,7 +60,12 @@ public class CmdImpl implements ICmd {
     @Override
     public Process exec2returnProcess() {
         try {
-            this.pro = Runtime.getRuntime().exec(order);
+            this.pro = Runtime.getRuntime().exec(bulidOrders());
+            try {
+                this.pro.waitFor();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,7 +76,7 @@ public class CmdImpl implements ICmd {
     public String exec() {
         String consoleLog = "";
         try {
-            this.pro = Runtime.getRuntime().exec(order);
+            this.pro = this.exec2returnProcess();
             String line;
             StringBuilder strbr = new StringBuilder();
             BufferedReader buf = null;
@@ -103,5 +110,18 @@ public class CmdImpl implements ICmd {
         }else{
             throw new Exception("The commond is running!");
         }
+    }
+
+    /**
+     * 构建orders
+     *
+     * @return String[]
+     */
+    private String[] bulidOrders(){
+        String[] orders = new String[3];
+        orders[0] = this.preOrder[0];
+        orders[1] = this.preOrder[1];
+        orders[2] = this.localOrders.get();
+        return orders;
     }
 }
