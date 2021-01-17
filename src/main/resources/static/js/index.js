@@ -83,7 +83,7 @@ $(function(){
     setInterval(function () {
         var data = $("#editArea").val();
         var file = $("#savefile").attr("file");
-        if(file == null || file == "" || (data == oldText)){
+        if(file == null || file == ""){
             return;
         } else{
             $.ajax({
@@ -280,8 +280,6 @@ $(function(){
         var file = $("#savefile").attr("file");
         if(file == null || file == ""){
             alert("请打开要保存的文件！");
-        } else if(data == oldText){
-            alert("文件没有修改！");
         } else{
             $.ajax({
                 url: "/mdland/savefile",
