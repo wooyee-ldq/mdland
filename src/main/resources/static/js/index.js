@@ -79,6 +79,38 @@ $(function(){
         }
     });
 
+    // 定时保存修改
+    setInterval(function () {
+        var data = $("#editArea").val();
+        var file = $("#savefile").attr("file");
+        if(file == null || file == "" || (data == oldText)){
+            return;
+        } else{
+            $.ajax({
+                url: "/mdland/savefile",
+                method: "post",  // 这里要设置为post，get传输的参数在请求头，当传输要保存的文本太大就会请求失败！！！
+                async: true,
+                dataType: "json",
+                data: {
+                    filename:file,
+                    context:data
+                },
+                success:function(data){
+                    var code = data.code;
+                    var context = data.data;
+                    if(code == 600){
+                        // alert("保存成功：" + context);
+                    }else{
+                        // alert("保存失败：" + context);
+                    }
+                },
+                error:function(err){
+                    // alert("error!");
+                }
+            });
+        }
+    },10000);
+
     // 测试---------------------------------------------------------------------------------------------------------------------------------------
     // let li = "<li title = '获取文件列表失败，请刷新页面！'>获取文件列表失败，请刷新页面！</li>";
     // $("#list").append(li); 
@@ -248,10 +280,12 @@ $(function(){
         var file = $("#savefile").attr("file");
         if(file == null || file == ""){
             alert("请打开要保存的文件！");
-        }else{
+        } else if(data == oldText){
+            alert("文件没有修改！");
+        } else{
             $.ajax({
                 url: "/mdland/savefile",
-                method: "get",  // 这里设置为post，禁用了此功能，本地电脑无法测试
+                method: "post",  // 这里要设置为post，get传输的参数在请求头，当传输要保存的文本太大就会请求失败！！！
                 async: true,
                 dataType: "json",
                 data: {

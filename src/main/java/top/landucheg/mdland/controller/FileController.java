@@ -1,9 +1,7 @@
 package top.landucheg.mdland.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.landucheg.mdland.model.Result;
 import top.landucheg.mdland.service.FileService;
 import top.landucheg.mdland.service.HexoService;
@@ -75,7 +73,7 @@ public class FileController {
      * @param context 文件内容
      * @return json
      */
-    @GetMapping("/savefile")
+    @PostMapping("/savefile")
     public Result<String> saveFile(@RequestParam("filename") String fileName, @RequestParam("context") String context){
         try {
             boolean bl = fileService.saveFile(fileName, context);

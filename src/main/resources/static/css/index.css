@@ -10,11 +10,11 @@ body{
 }
 
 .swid{
-    width: 1420px;
+    width: 1440px;
 }
 
 .bwid{
-    width: 1700px;
+    width: 1720px;
 }
 
 #title{
@@ -114,7 +114,7 @@ body{
 #html{
     display: inline-block;
     /* border: 1px solid black; */
-    width: 660px;
+    width: 680px;
     height: 700px;
     padding: 10px;
     margin: 0px 0px 0px 10px;

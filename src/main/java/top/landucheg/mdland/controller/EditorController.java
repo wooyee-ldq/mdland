@@ -9,11 +9,21 @@ public class EditorController {
     /**
      * 编辑器主页面
      *
-     * @return html
+     * @return html page
      */
-    @GetMapping("")
+    @GetMapping("/editor")
     public String index(){
         return "static/html/mdEditor.html";
+    }
+
+    /**
+     * GET请求返回登录页面
+     *
+     * @return html page
+     */
+    @GetMapping("/login")
+    public String login(){
+        return "static/html/login.html";
     }
 
 }
