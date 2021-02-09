@@ -104,6 +104,7 @@ $(function(){
                     var context = data.data;
                     if(code == 600){
                         // alert("保存成功：" + context);
+                        $("#editArea").attr("isSave", "true");
                     }else{
                         // alert("保存失败：" + context);
                     }
