@@ -82,7 +82,7 @@ $(function(){
     // 定时保存修改
     setInterval(function () {
         // 判断文件是否已经保存
-        if($("#editArea").attr("isSave") == "false"){
+        if($("#editArea").attr("isSave") == "true"){
             return;
         }
         var data = $("#editArea").val();
