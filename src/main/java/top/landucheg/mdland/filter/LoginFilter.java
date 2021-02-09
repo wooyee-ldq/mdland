@@ -31,6 +31,15 @@ public class LoginFilter implements Filter {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
+        if("/mdland".equals(url) || "/mdland/".equals(url)){
+            if(user == null || user == ""){
+                response.sendRedirect("/mdland/login");
+                return;
+            }else{
+                response.sendRedirect("/mdland/editor");
+                return;
+            }
+        }
         if("/mdland/editor".equals(url) || "/mdland/editor/".equals(url)){
             if("POST".equals(httpMethod.toUpperCase())){
                 String userName = request.getParameter("user");
@@ -67,9 +76,6 @@ public class LoginFilter implements Filter {
     }
 
     private boolean isLoginUrl(String url){
-        return "/mdland/login".equals(url) ||
-                "/mdland/login/".equals(url) ||
-                "/mdland".equals(url) ||
-                "/mdland/".equals(url);
+        return "/mdland/login".equals(url) || "/mdland/login/".equals(url);
     }
 }
