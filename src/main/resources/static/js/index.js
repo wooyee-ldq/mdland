@@ -126,6 +126,7 @@ $(function(){
         if(currentVal != oldText){
             oldText = currentVal;
             render(currentVal)
+            $("#editArea").attr("isSave", "false");
         }
     
     });
@@ -161,7 +162,7 @@ $(function(){
 
     // 读取文件
     $("#list").on('click', 'li', function(){
-        if($("#editArea").val() != oldText){
+        if($("#editArea").attr("isSave") == "false"){
             var isSave = confirm($("#savefile").attr("file") + " 文件被修改，是否保存？");
             if(isSave){
                 var data = $("#editArea").val();
@@ -180,12 +181,15 @@ $(function(){
                         var context = data.data;
                         if(code == 600){
                             alert("保存成功：" + context);
+                            $("#editArea").attr("isSave", "true");
                         }else{
                             alert("保存失败：" + context);
+                            return;
                         }
                     },
                     error:function(err){
                         alert("error!");
+                        return;
                     }
                 });
             }else{
@@ -261,6 +265,7 @@ $(function(){
                         oldText = context;
                         $("#editArea").val(context);
                         $("#savefile").attr("file", file);
+                        $("#editArea").attr("isSave", "true");
                         render(context);
                     }else{
                         alert("文件创建失败：" + context);
@@ -295,6 +300,7 @@ $(function(){
                     var context = data.data;
                     if(code == 600){
                         alert("保存成功：" + context);
+                        $("#editArea").attr("isSave", "true");
                     }else{
                         alert("保存失败：" + context);
                     }
