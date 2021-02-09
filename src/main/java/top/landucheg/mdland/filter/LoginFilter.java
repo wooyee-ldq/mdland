@@ -27,7 +27,7 @@ public class LoginFilter implements Filter {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
-        if("GET".equals(httpMethod.toUpperCase()) && ("/mdland/login".equals(url) || "/mdland/login/".equals(url))){
+        if("GET".equals(httpMethod.toUpperCase()) && isLoginUrl(url)){
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
@@ -64,5 +64,12 @@ public class LoginFilter implements Filter {
     @Override
     public void destroy() {
 
+    }
+
+    private boolean isLoginUrl(String url){
+        return "/mdland/login".equals(url) ||
+                "/mdland/login/".equals(url) ||
+                "/mdland".equals(url) ||
+                "/mdland/".equals(url);
     }
 }
