@@ -44,7 +44,7 @@ body{
     display: inline-block;
     height: 720px;
     width: 280px;
-    overflow: hidden;
+    overflow: auto;
 }
 
 #list{
